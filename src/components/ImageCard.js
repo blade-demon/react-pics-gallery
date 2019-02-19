@@ -1,4 +1,10 @@
 import React from "react";
+import styled from "styled-components";
+
+const StyledImage = styled.img`
+  width: 250px;
+  grid-row-end: span 3;
+`;
 
 export default class ImageCard extends React.Component {
   constructor(props) {
@@ -24,7 +30,7 @@ export default class ImageCard extends React.Component {
 
     return (
       <div style={{ gridRowEnd: `span ${this.state.spans}` }}>
-        <img ref={this.imageRef} src={urls.regular} alt={description} />
+        <StyledImage ref={this.imageRef} src={urls.regular} alt={description} />
       </div>
     );
   }

@@ -1,30 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
+import styled from "styled-components";
 import unsplash from "../api/unsplash";
 import SearchBar from "./SearchBar";
 import ImageList from "./ImageList";
 
-class App extends React.Component {
-  state = {
-    images: []
-  };
+const StyledContainer = styled.div`
+  margin-top: 1rem;
+`;
 
-  onSearchSubmit = async term => {
+const App = () => {
+  const [images, setImages] = useState([]);
+  const onSearchSubmit = async term => {
     const responds = await unsplash.get("/search/photos", {
       params: { query: term }
     });
-    this.setState({
-      images: responds.data.results
-    });
+    setImages(responds.data.results);
   };
 
-  render() {
-    return (
-      <div className="ui container" style={{ marginTop: "10px" }}>
-        <SearchBar onSearchSubmit={this.onSearchSubmit} />
-        <ImageList images={this.state.images} />{" "}
-      </div>
-    );
-  }
-}
+  return (
+    <StyledContainer className="ui container">
+      <SearchBar onSearchSubmit={onSearchSubmit} />
+      <ImageList images={images} />{" "}
+    </StyledContainer>
+  );
+};
 
 export default App;
